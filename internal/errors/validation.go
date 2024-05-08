@@ -10,13 +10,11 @@ const INVALID_PRODUCT_PRICE = "O preço do produto é inválido, forneça um pre
 
 type ValidationError struct {
 	Message string
-	Code    int
 }
 
 func NewValidationError(message string) *ValidationError {
 	return &ValidationError{
 		Message: message,
-		Code:    400,
 	}
 }
 

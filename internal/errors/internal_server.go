@@ -1,5 +1,7 @@
 package errors
 
+const DECODE = "Erro ao decodificar dados!"
+
 const CREATE_USER = "Erro ao criar usuário!"
 const FIND_ALL_USERS = "Erro ao buscar usuários!"
 const FIND_USER = "Erro ao buscar usuário!"
@@ -14,13 +16,11 @@ const COMPARE_PASSWORD = "Erro ao comparar a senha com o hash!"
 
 type InternalServerError struct {
 	Message string
-	Code    int
 }
 
 func NewInternalServerError(message string) *InternalServerError {
 	return &InternalServerError{
 		Message: message,
-		Code:    500,
 	}
 }
 
