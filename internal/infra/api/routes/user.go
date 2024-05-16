@@ -20,5 +20,5 @@ func NewUserRoutes(router *http.ServeMux, createUserHandler *handlers.CreateUser
 }
 
 func (r *UserRoutes) Register() {
-	r.Router.HandleFunc("POST /users", middlewares.HttpErrorHandlerMiddleware(r.CreateUserHandler.Handle))
+	r.Router.HandleFunc("POST /users", middlewares.ErrorHandlerMiddleware(r.CreateUserHandler.Handle))
 }

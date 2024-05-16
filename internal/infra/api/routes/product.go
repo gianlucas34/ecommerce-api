@@ -20,5 +20,5 @@ func NewProductRoutes(mux *http.ServeMux, createProductHandler *handlers.CreateP
 }
 
 func (r *ProductRoutes) Register() {
-	r.Mux.HandleFunc("POST /products", middlewares.HttpErrorHandlerMiddleware(r.CreateProductHandler.Handle))
+	r.Mux.HandleFunc("POST /products", middlewares.ErrorHandlerMiddleware(r.CreateProductHandler.Handle))
 }

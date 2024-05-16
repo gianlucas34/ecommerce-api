@@ -13,7 +13,7 @@ type ErrorResponse struct {
 	Error string `json:"error"`
 }
 
-func HttpErrorHandlerMiddleware(handler HandlerFunc) http.HandlerFunc {
+func ErrorHandlerMiddleware(handler HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		err := handler(w, r)
 
