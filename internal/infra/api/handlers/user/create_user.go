@@ -20,7 +20,6 @@ func NewCreateUserHandler(createUserUsecase *usecases.CreateUser) *CreateUserHan
 
 func (h *CreateUserHandler) Handle(w http.ResponseWriter, r *http.Request) error {
 	var input usecases.CreateUserInput
-	w.Header().Set("Content-Type", "application/json")
 
 	err := json.NewDecoder(r.Body).Decode(&input)
 

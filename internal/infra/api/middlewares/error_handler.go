@@ -15,6 +15,8 @@ type ErrorResponse struct {
 
 func ErrorHandlerMiddleware(handler HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+
 		err := handler(w, r)
 
 		if err != nil {
