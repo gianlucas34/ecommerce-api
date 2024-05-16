@@ -1,4 +1,4 @@
-package usecases
+package productucs
 
 import (
 	"testing"

@@ -1,4 +1,4 @@
-package usecases
+package userucs
 
 import (
 	"github.com/gianlucas34/ecommerce-api/internal/application/ports/repositories"

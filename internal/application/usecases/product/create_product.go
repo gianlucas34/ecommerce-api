@@ -1,4 +1,4 @@
-package usecases
+package productucs
 
 import (
 	ports "github.com/gianlucas34/ecommerce-api/internal/application/ports/repositories"

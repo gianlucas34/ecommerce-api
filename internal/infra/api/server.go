@@ -16,11 +16,13 @@ func NewServer() *Server {
 func (s *Server) Start() error {
 	router := http.NewServeMux()
 
-	createUserHandlerFactory := factories.CreateUserHandlerFactory()
-	createProductHandlerFactory := factories.CreateProductHandlerFactory()
+	repositories := factories.NewRepositoriesFactory()
+	adapters := factories.NewAdaptersFactory()
+	usecases := factories.NewUsecasesFactory(repositories, adapters)
+	handlers := factories.NewHandlersFactory(usecases)
 
-	userRoutes := routes.NewUserRoutes(router, createUserHandlerFactory)
-	productRoutes := routes.NewProductRoutes(router, createProductHandlerFactory)
+	userRoutes := routes.NewUserRoutes(router, handlers.CreateUserHandler)
+	productRoutes := routes.NewProductRoutes(router, handlers.CreateProductHandler)
 
 	userRoutes.Register()
 	productRoutes.Register()

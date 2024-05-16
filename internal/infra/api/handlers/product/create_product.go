@@ -1,4 +1,4 @@
-package handlers
+package producthdls
 
 import (
 	"encoding/json"
