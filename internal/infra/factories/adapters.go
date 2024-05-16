@@ -1,9 +1,12 @@
 package factories
 
-import "github.com/gianlucas34/ecommerce-api/internal/mocks"
+import (
+	"github.com/gianlucas34/ecommerce-api/internal/application/ports/security"
+	"github.com/gianlucas34/ecommerce-api/internal/mocks"
+)
 
 type AdaptersFactory struct {
-	PasswordHashingAdapter *mocks.PasswordHashingMock
+	PasswordHashingAdapter security.PasswordHashing
 }
 
 func NewAdaptersFactory() *AdaptersFactory {

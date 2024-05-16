@@ -1,10 +1,13 @@
 package factories
 
-import memoryrepos "github.com/gianlucas34/ecommerce-api/internal/infra/repositories/memory"
+import (
+	"github.com/gianlucas34/ecommerce-api/internal/application/ports/repositories"
+	memoryrepos "github.com/gianlucas34/ecommerce-api/internal/infra/repositories/memory"
+)
 
 type RepositoriesFactory struct {
-	UserRepository    *memoryrepos.UserRepositoryMemory
-	ProductRepository *memoryrepos.ProductRepositoryMemory
+	UserRepository    repositories.UserRepository
+	ProductRepository repositories.ProductRepository
 }
 
 func NewRepositoriesFactory() *RepositoriesFactory {
