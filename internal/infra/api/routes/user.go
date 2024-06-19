@@ -3,16 +3,16 @@ package routes
 import (
 	"net/http"
 
-	handlers "github.com/gianlucas34/ecommerce-api/internal/infra/api/handlers/user"
+	userhdls "github.com/gianlucas34/ecommerce-api/internal/infra/api/handlers/user"
 	"github.com/gianlucas34/ecommerce-api/internal/infra/api/middlewares"
 )
 
 type UserRoutes struct {
 	Router            *http.ServeMux
-	CreateUserHandler *handlers.CreateUserHandler
+	CreateUserHandler *userhdls.CreateUserHandler
 }
 
-func NewUserRoutes(router *http.ServeMux, createUserHandler *handlers.CreateUserHandler) *UserRoutes {
+func NewUserRoutes(router *http.ServeMux, createUserHandler *userhdls.CreateUserHandler) *UserRoutes {
 	return &UserRoutes{
 		Router:            router,
 		CreateUserHandler: createUserHandler,

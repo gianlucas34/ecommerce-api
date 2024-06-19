@@ -1,12 +1,12 @@
 package productucs
 
 import (
-	ports "github.com/gianlucas34/ecommerce-api/internal/application/ports/repositories"
-	entities "github.com/gianlucas34/ecommerce-api/internal/domain"
+	"github.com/gianlucas34/ecommerce-api/internal/application/ports/repositories"
+	"github.com/gianlucas34/ecommerce-api/internal/domain"
 )
 
 type CreateProduct struct {
-	ProductRepository ports.ProductRepository
+	ProductRepository repositories.ProductRepository
 }
 
 type CreateProductInput struct {
@@ -14,14 +14,14 @@ type CreateProductInput struct {
 	Price float64
 }
 
-func NewCreateProduct(productRepository ports.ProductRepository) *CreateProduct {
+func NewCreateProduct(productRepository repositories.ProductRepository) *CreateProduct {
 	return &CreateProduct{
 		ProductRepository: productRepository,
 	}
 }
 
 func (c *CreateProduct) Execute(input CreateProductInput) error {
-	product, err := entities.NewProduct(input.Name, input.Price)
+	product, err := domain.NewProduct(input.Name, input.Price)
 
 	if err != nil {
 		return err

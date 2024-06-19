@@ -4,22 +4,22 @@ import (
 	"encoding/json"
 	"net/http"
 
-	usecases "github.com/gianlucas34/ecommerce-api/internal/application/usecases/user"
+	userucs "github.com/gianlucas34/ecommerce-api/internal/application/usecases/user"
 	"github.com/gianlucas34/ecommerce-api/internal/errors"
 )
 
 type CreateUserHandler struct {
-	CreateUserUsecase *usecases.CreateUser
+	CreateUserUsecase *userucs.CreateUser
 }
 
-func NewCreateUserHandler(createUserUsecase *usecases.CreateUser) *CreateUserHandler {
+func NewCreateUserHandler(createUserUsecase *userucs.CreateUser) *CreateUserHandler {
 	return &CreateUserHandler{
 		CreateUserUsecase: createUserUsecase,
 	}
 }
 
 func (h *CreateUserHandler) Handle(w http.ResponseWriter, r *http.Request) error {
-	var input usecases.CreateUserInput
+	var input userucs.CreateUserInput
 
 	err := json.NewDecoder(r.Body).Decode(&input)
 

@@ -3,16 +3,16 @@ package routes
 import (
 	"net/http"
 
-	handlers "github.com/gianlucas34/ecommerce-api/internal/infra/api/handlers/product"
+	producthdls "github.com/gianlucas34/ecommerce-api/internal/infra/api/handlers/product"
 	"github.com/gianlucas34/ecommerce-api/internal/infra/api/middlewares"
 )
 
 type ProductRoutes struct {
 	Mux                  *http.ServeMux
-	CreateProductHandler *handlers.CreateProductHandler
+	CreateProductHandler *producthdls.CreateProductHandler
 }
 
-func NewProductRoutes(mux *http.ServeMux, createProductHandler *handlers.CreateProductHandler) *ProductRoutes {
+func NewProductRoutes(mux *http.ServeMux, createProductHandler *producthdls.CreateProductHandler) *ProductRoutes {
 	return &ProductRoutes{
 		Mux:                  mux,
 		CreateProductHandler: createProductHandler,

@@ -3,7 +3,7 @@ package userucs
 import (
 	"github.com/gianlucas34/ecommerce-api/internal/application/ports/repositories"
 	"github.com/gianlucas34/ecommerce-api/internal/application/ports/security"
-	entities "github.com/gianlucas34/ecommerce-api/internal/domain"
+	"github.com/gianlucas34/ecommerce-api/internal/domain"
 	"github.com/gianlucas34/ecommerce-api/internal/errors"
 )
 
@@ -32,7 +32,7 @@ func (c *CreateUser) Execute(input CreateUserInput) error {
 		return err
 	}
 
-	user, err := entities.NewUser(input.Name, input.Email, passwordHash)
+	user, err := domain.NewUser(input.Name, input.Email, passwordHash)
 
 	if err != nil {
 		return err

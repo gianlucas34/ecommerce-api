@@ -1,12 +1,12 @@
 package memoryrepos
 
 import (
-	entities "github.com/gianlucas34/ecommerce-api/internal/domain"
+	"github.com/gianlucas34/ecommerce-api/internal/domain"
 	"github.com/gianlucas34/ecommerce-api/internal/errors"
 )
 
 type UserRepositoryMemory struct {
-	Users             []*entities.User
+	Users             []*domain.User
 	createFailed      bool
 	findAllFailed     bool
 	findFailed        bool
@@ -16,11 +16,11 @@ type UserRepositoryMemory struct {
 
 func NewUserRepositoryMemory() *UserRepositoryMemory {
 	return &UserRepositoryMemory{
-		Users: make([]*entities.User, 0),
+		Users: make([]*domain.User, 0),
 	}
 }
 
-func (r *UserRepositoryMemory) Create(user *entities.User) error {
+func (r *UserRepositoryMemory) Create(user *domain.User) error {
 	if r.createFailed {
 		return errors.NewInternalServerError(errors.CREATE_USER)
 	}
@@ -30,7 +30,7 @@ func (r *UserRepositoryMemory) Create(user *entities.User) error {
 	return nil
 }
 
-func (r *UserRepositoryMemory) FindAll() ([]*entities.User, error) {
+func (r *UserRepositoryMemory) FindAll() ([]*domain.User, error) {
 	if r.findAllFailed {
 		return nil, errors.NewInternalServerError(errors.FIND_ALL_USERS)
 	}
@@ -38,7 +38,7 @@ func (r *UserRepositoryMemory) FindAll() ([]*entities.User, error) {
 	return r.Users, nil
 }
 
-func (r *UserRepositoryMemory) Find(id string) (*entities.User, error) {
+func (r *UserRepositoryMemory) Find(id string) (*domain.User, error) {
 	if r.findFailed {
 		return nil, errors.NewInternalServerError(errors.FIND_USER)
 	}

@@ -1,12 +1,12 @@
 package memoryrepos
 
 import (
-	entities "github.com/gianlucas34/ecommerce-api/internal/domain"
+	"github.com/gianlucas34/ecommerce-api/internal/domain"
 	"github.com/gianlucas34/ecommerce-api/internal/errors"
 )
 
 type ProductRepositoryMemory struct {
-	Products      []*entities.Product
+	Products      []*domain.Product
 	createFailed  bool
 	findAllFailed bool
 	findFailed    bool
@@ -14,11 +14,11 @@ type ProductRepositoryMemory struct {
 
 func NewProductRepositoryMemory() *ProductRepositoryMemory {
 	return &ProductRepositoryMemory{
-		Products: make([]*entities.Product, 0),
+		Products: make([]*domain.Product, 0),
 	}
 }
 
-func (r *ProductRepositoryMemory) Create(product *entities.Product) error {
+func (r *ProductRepositoryMemory) Create(product *domain.Product) error {
 	if r.createFailed {
 		return errors.NewInternalServerError(errors.CREATE_PRODUCT)
 	}
@@ -28,7 +28,7 @@ func (r *ProductRepositoryMemory) Create(product *entities.Product) error {
 	return nil
 }
 
-func (r *ProductRepositoryMemory) FindAll() ([]*entities.Product, error) {
+func (r *ProductRepositoryMemory) FindAll() ([]*domain.Product, error) {
 	if r.findAllFailed {
 		return nil, errors.NewInternalServerError(errors.FIND_ALL_PRODUCTS)
 	}
@@ -36,7 +36,7 @@ func (r *ProductRepositoryMemory) FindAll() ([]*entities.Product, error) {
 	return r.Products, nil
 }
 
-func (r *ProductRepositoryMemory) Find(id string) (*entities.Product, error) {
+func (r *ProductRepositoryMemory) Find(id string) (*domain.Product, error) {
 	if r.findFailed {
 		return nil, errors.NewInternalServerError(errors.FIND_PRODUCT)
 	}
