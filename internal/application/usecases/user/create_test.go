@@ -1,21 +1,21 @@
-package userucs
+package user
 
 import (
 	"testing"
 
 	"github.com/gianlucas34/ecommerce-api/internal/errors"
-	memoryrepos "github.com/gianlucas34/ecommerce-api/internal/infra/repositories/memory"
+	"github.com/gianlucas34/ecommerce-api/internal/infra/repositories/memory"
 	"github.com/gianlucas34/ecommerce-api/internal/mocks"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCreateUser(t *testing.T) {
+func TestCreateUserUsecase(t *testing.T) {
 	t.Run("Should create user correctly", func(t *testing.T) {
-		userRepository := memoryrepos.NewUserRepositoryMemory()
+		userRepository := memory.NewUserRepository()
 		passwordHashing := mocks.NewPasswordHashingMock()
-		createUser := NewCreateUser(userRepository, passwordHashing)
+		createUserUsecase := NewCreateUserUsecase(userRepository, passwordHashing)
 
-		err := createUser.Execute(CreateUserInput{
+		err := createUserUsecase.Execute(CreateUserUsecaseInput{
 			Name:     "Usuário",
 			Email:    "user@gmail.com",
 			Password: "senha",
@@ -26,13 +26,13 @@ func TestCreateUser(t *testing.T) {
 	})
 
 	t.Run("Should return error if PasswordHashing.Generate() fails", func(t *testing.T) {
-		userRepository := memoryrepos.NewUserRepositoryMemory()
+		userRepository := memory.NewUserRepository()
 		passwordHashing := mocks.NewPasswordHashingMock()
-		createUser := NewCreateUser(userRepository, passwordHashing)
+		createUserUsecase := NewCreateUserUsecase(userRepository, passwordHashing)
 
 		passwordHashing.FailGenerate()
 
-		err := createUser.Execute(CreateUserInput{
+		err := createUserUsecase.Execute(CreateUserUsecaseInput{
 			Name:     "Usuário",
 			Email:    "user@gmail.com",
 			Password: "senha",
@@ -43,11 +43,11 @@ func TestCreateUser(t *testing.T) {
 	})
 
 	t.Run("Should return error if NewUser() called with incorrect data", func(t *testing.T) {
-		userRepository := memoryrepos.NewUserRepositoryMemory()
+		userRepository := memory.NewUserRepository()
 		passwordHashing := mocks.NewPasswordHashingMock()
-		createUser := NewCreateUser(userRepository, passwordHashing)
+		createUserUsecase := NewCreateUserUsecase(userRepository, passwordHashing)
 
-		err := createUser.Execute(CreateUserInput{
+		err := createUserUsecase.Execute(CreateUserUsecaseInput{
 			Name:     "",
 			Email:    "user@gmail.com",
 			Password: "senha",
@@ -58,13 +58,13 @@ func TestCreateUser(t *testing.T) {
 	})
 
 	t.Run("Should return error if UserRepository.FindByEmail() fails", func(t *testing.T) {
-		userRepository := memoryrepos.NewUserRepositoryMemory()
+		userRepository := memory.NewUserRepository()
 		passwordHashing := mocks.NewPasswordHashingMock()
-		createUser := NewCreateUser(userRepository, passwordHashing)
+		createUserUsecase := NewCreateUserUsecase(userRepository, passwordHashing)
 
 		userRepository.FailFindByEmail()
 
-		err := createUser.Execute(CreateUserInput{
+		err := createUserUsecase.Execute(CreateUserUsecaseInput{
 			Name:     "Usuário",
 			Email:    "user@gmail.com",
 			Password: "senha",
@@ -75,13 +75,13 @@ func TestCreateUser(t *testing.T) {
 	})
 
 	t.Run("Should return ALREADY_IN_USE_EMAIL exception if email already in use", func(t *testing.T) {
-		userRepository := memoryrepos.NewUserRepositoryMemory()
+		userRepository := memory.NewUserRepository()
 		passwordHashing := mocks.NewPasswordHashingMock()
-		createUser := NewCreateUser(userRepository, passwordHashing)
+		createUserUsecase := NewCreateUserUsecase(userRepository, passwordHashing)
 
 		userRepository.EmailAlreadyInUse()
 
-		err := createUser.Execute(CreateUserInput{
+		err := createUserUsecase.Execute(CreateUserUsecaseInput{
 			Name:     "Usuário",
 			Email:    "user@gmail.com",
 			Password: "senha",
@@ -92,13 +92,13 @@ func TestCreateUser(t *testing.T) {
 	})
 
 	t.Run("Should return error if UserRepository.Create() fails", func(t *testing.T) {
-		userRepository := memoryrepos.NewUserRepositoryMemory()
+		userRepository := memory.NewUserRepository()
 		passwordHashing := mocks.NewPasswordHashingMock()
-		createUser := NewCreateUser(userRepository, passwordHashing)
+		createUserUsecase := NewCreateUserUsecase(userRepository, passwordHashing)
 
 		userRepository.FailCreate()
 
-		err := createUser.Execute(CreateUserInput{
+		err := createUserUsecase.Execute(CreateUserUsecaseInput{
 			Name:     "Usuário",
 			Email:    "user@gmail.com",
 			Password: "senha",

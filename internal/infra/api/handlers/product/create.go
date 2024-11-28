@@ -1,25 +1,25 @@
-package producthdls
+package product
 
 import (
 	"encoding/json"
 	"net/http"
 
-	productucs "github.com/gianlucas34/ecommerce-api/internal/application/usecases/product"
+	"github.com/gianlucas34/ecommerce-api/internal/application/usecases/product"
 	"github.com/gianlucas34/ecommerce-api/internal/errors"
 )
 
 type CreateProductHandler struct {
-	CreateProductUsecase *productucs.CreateProduct
+	CreateProductUsecase *product.CreateProductUsecase
 }
 
-func NewCreateProductHandler(createProductUsecase *productucs.CreateProduct) *CreateProductHandler {
+func NewCreateProductHandler(createProductUsecase *product.CreateProductUsecase) *CreateProductHandler {
 	return &CreateProductHandler{
 		CreateProductUsecase: createProductUsecase,
 	}
 }
 
 func (h *CreateProductHandler) Handle(w http.ResponseWriter, r *http.Request) error {
-	var input productucs.CreateProductInput
+	var input product.CreateProductUsecaseInput
 
 	err := json.NewDecoder(r.Body).Decode(&input)
 

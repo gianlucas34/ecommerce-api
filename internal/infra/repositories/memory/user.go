@@ -1,11 +1,11 @@
-package memoryrepos
+package memory
 
 import (
 	"github.com/gianlucas34/ecommerce-api/internal/domain"
 	"github.com/gianlucas34/ecommerce-api/internal/errors"
 )
 
-type UserRepositoryMemory struct {
+type UserRepository struct {
 	Users             []*domain.User
 	createFailed      bool
 	findAllFailed     bool
@@ -14,13 +14,13 @@ type UserRepositoryMemory struct {
 	emailAlreadyInUse bool
 }
 
-func NewUserRepositoryMemory() *UserRepositoryMemory {
-	return &UserRepositoryMemory{
+func NewUserRepository() *UserRepository {
+	return &UserRepository{
 		Users: make([]*domain.User, 0),
 	}
 }
 
-func (r *UserRepositoryMemory) Create(user *domain.User) error {
+func (r *UserRepository) Create(user *domain.User) error {
 	if r.createFailed {
 		return errors.NewInternalServerError(errors.CREATE_USER)
 	}
@@ -30,7 +30,7 @@ func (r *UserRepositoryMemory) Create(user *domain.User) error {
 	return nil
 }
 
-func (r *UserRepositoryMemory) FindAll() ([]*domain.User, error) {
+func (r *UserRepository) FindAll() ([]*domain.User, error) {
 	if r.findAllFailed {
 		return nil, errors.NewInternalServerError(errors.FIND_ALL_USERS)
 	}
@@ -38,7 +38,7 @@ func (r *UserRepositoryMemory) FindAll() ([]*domain.User, error) {
 	return r.Users, nil
 }
 
-func (r *UserRepositoryMemory) Find(id string) (*domain.User, error) {
+func (r *UserRepository) Find(id string) (*domain.User, error) {
 	if r.findFailed {
 		return nil, errors.NewInternalServerError(errors.FIND_USER)
 	}
@@ -52,7 +52,7 @@ func (r *UserRepositoryMemory) Find(id string) (*domain.User, error) {
 	return nil, nil
 }
 
-func (r *UserRepositoryMemory) FindByEmail(email string) (bool, error) {
+func (r *UserRepository) FindByEmail(email string) (bool, error) {
 	if r.findByEmailFailed {
 		return false, errors.NewInternalServerError(errors.FIND_USER_BY_EMAIL)
 	}
@@ -70,31 +70,31 @@ func (r *UserRepositoryMemory) FindByEmail(email string) (bool, error) {
 	return false, nil
 }
 
-func (r *UserRepositoryMemory) FailCreate() *UserRepositoryMemory {
+func (r *UserRepository) FailCreate() *UserRepository {
 	r.createFailed = true
 
 	return r
 }
 
-func (r *UserRepositoryMemory) FailFindAll() *UserRepositoryMemory {
+func (r *UserRepository) FailFindAll() *UserRepository {
 	r.findAllFailed = true
 
 	return r
 }
 
-func (r *UserRepositoryMemory) FailFind() *UserRepositoryMemory {
+func (r *UserRepository) FailFind() *UserRepository {
 	r.findFailed = true
 
 	return r
 }
 
-func (r *UserRepositoryMemory) FailFindByEmail() *UserRepositoryMemory {
+func (r *UserRepository) FailFindByEmail() *UserRepository {
 	r.findByEmailFailed = true
 
 	return r
 }
 
-func (r *UserRepositoryMemory) EmailAlreadyInUse() *UserRepositoryMemory {
+func (r *UserRepository) EmailAlreadyInUse() *UserRepository {
 	r.emailAlreadyInUse = true
 
 	return r

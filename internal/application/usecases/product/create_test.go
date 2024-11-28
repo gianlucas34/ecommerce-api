@@ -1,19 +1,19 @@
-package productucs
+package product
 
 import (
 	"testing"
 
 	"github.com/gianlucas34/ecommerce-api/internal/errors"
-	memoryrepos "github.com/gianlucas34/ecommerce-api/internal/infra/repositories/memory"
+	"github.com/gianlucas34/ecommerce-api/internal/infra/repositories/memory"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCreateProduct(t *testing.T) {
+func TestCreateProductUsecase(t *testing.T) {
 	t.Run("Should create product correctly", func(t *testing.T) {
-		productRepository := memoryrepos.NewProductRepositoryMemory()
-		createProduct := NewCreateProduct(productRepository)
+		productRepository := memory.NewProductRepository()
+		createProductUsecase := NewCreateProductUsecase(productRepository)
 
-		err := createProduct.Execute(CreateProductInput{
+		err := createProductUsecase.Execute(CreateProductUsecaseInput{
 			Name:  "Produto",
 			Price: 12.5,
 		})
@@ -23,10 +23,10 @@ func TestCreateProduct(t *testing.T) {
 	})
 
 	t.Run("Should return error if NewProduct() called with incorrect data", func(t *testing.T) {
-		productRepository := memoryrepos.NewProductRepositoryMemory()
-		createProduct := NewCreateProduct(productRepository)
+		productRepository := memory.NewProductRepository()
+		createProductUsecase := NewCreateProductUsecase(productRepository)
 
-		err := createProduct.Execute(CreateProductInput{
+		err := createProductUsecase.Execute(CreateProductUsecaseInput{
 			Name:  "Produto",
 			Price: 0,
 		})
@@ -36,12 +36,12 @@ func TestCreateProduct(t *testing.T) {
 	})
 
 	t.Run("Should return error if ProductRepository.Create() fails", func(t *testing.T) {
-		productRepository := memoryrepos.NewProductRepositoryMemory()
-		createProduct := NewCreateProduct(productRepository)
+		productRepository := memory.NewProductRepository()
+		createProductUsecase := NewCreateProductUsecase(productRepository)
 
 		productRepository.FailCreate()
 
-		err := createProduct.Execute(CreateProductInput{
+		err := createProductUsecase.Execute(CreateProductUsecaseInput{
 			Name:  "Produto",
 			Price: 12.5,
 		})

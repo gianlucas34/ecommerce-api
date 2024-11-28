@@ -1,25 +1,25 @@
-package userhdls
+package user
 
 import (
 	"encoding/json"
 	"net/http"
 
-	userucs "github.com/gianlucas34/ecommerce-api/internal/application/usecases/user"
+	"github.com/gianlucas34/ecommerce-api/internal/application/usecases/user"
 	"github.com/gianlucas34/ecommerce-api/internal/errors"
 )
 
 type CreateUserHandler struct {
-	CreateUserUsecase *userucs.CreateUser
+	CreateUserUsecase *user.CreateUserUsecase
 }
 
-func NewCreateUserHandler(createUserUsecase *userucs.CreateUser) *CreateUserHandler {
+func NewCreateUserHandler(createUserUsecase *user.CreateUserUsecase) *CreateUserHandler {
 	return &CreateUserHandler{
 		CreateUserUsecase: createUserUsecase,
 	}
 }
 
 func (h *CreateUserHandler) Handle(w http.ResponseWriter, r *http.Request) error {
-	var input userucs.CreateUserInput
+	var input user.CreateUserUsecaseInput
 
 	err := json.NewDecoder(r.Body).Decode(&input)
 

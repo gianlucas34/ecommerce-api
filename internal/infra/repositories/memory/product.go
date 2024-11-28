@@ -1,24 +1,24 @@
-package memoryrepos
+package memory
 
 import (
 	"github.com/gianlucas34/ecommerce-api/internal/domain"
 	"github.com/gianlucas34/ecommerce-api/internal/errors"
 )
 
-type ProductRepositoryMemory struct {
+type ProductRepository struct {
 	Products      []*domain.Product
 	createFailed  bool
 	findAllFailed bool
 	findFailed    bool
 }
 
-func NewProductRepositoryMemory() *ProductRepositoryMemory {
-	return &ProductRepositoryMemory{
+func NewProductRepository() *ProductRepository {
+	return &ProductRepository{
 		Products: make([]*domain.Product, 0),
 	}
 }
 
-func (r *ProductRepositoryMemory) Create(product *domain.Product) error {
+func (r *ProductRepository) Create(product *domain.Product) error {
 	if r.createFailed {
 		return errors.NewInternalServerError(errors.CREATE_PRODUCT)
 	}
@@ -28,7 +28,7 @@ func (r *ProductRepositoryMemory) Create(product *domain.Product) error {
 	return nil
 }
 
-func (r *ProductRepositoryMemory) FindAll() ([]*domain.Product, error) {
+func (r *ProductRepository) FindAll() ([]*domain.Product, error) {
 	if r.findAllFailed {
 		return nil, errors.NewInternalServerError(errors.FIND_ALL_PRODUCTS)
 	}
@@ -36,7 +36,7 @@ func (r *ProductRepositoryMemory) FindAll() ([]*domain.Product, error) {
 	return r.Products, nil
 }
 
-func (r *ProductRepositoryMemory) Find(id string) (*domain.Product, error) {
+func (r *ProductRepository) Find(id string) (*domain.Product, error) {
 	if r.findFailed {
 		return nil, errors.NewInternalServerError(errors.FIND_PRODUCT)
 	}
@@ -50,19 +50,19 @@ func (r *ProductRepositoryMemory) Find(id string) (*domain.Product, error) {
 	return nil, nil
 }
 
-func (r *ProductRepositoryMemory) FailCreate() *ProductRepositoryMemory {
+func (r *ProductRepository) FailCreate() *ProductRepository {
 	r.createFailed = true
 
 	return r
 }
 
-func (r *ProductRepositoryMemory) FailFindAll() *ProductRepositoryMemory {
+func (r *ProductRepository) FailFindAll() *ProductRepository {
 	r.findAllFailed = true
 
 	return r
 }
 
-func (r *ProductRepositoryMemory) FailFind() *ProductRepositoryMemory {
+func (r *ProductRepository) FailFind() *ProductRepository {
 	r.findFailed = true
 
 	return r

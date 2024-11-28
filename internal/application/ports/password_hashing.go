@@ -1,4 +1,4 @@
-package security
+package ports
 
 type PasswordHashing interface {
 	Generate(plaintext string) (string, error)
